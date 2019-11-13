@@ -1,7 +1,7 @@
 #ifndef HASHMAP_H
 #define HASHMAP_H
 
-#include "HashEntry.h"
+#include "ArbolBinarioAVL.h"
 
 template<class K, class T>
 class HashMap {
@@ -10,7 +10,8 @@ private:
 
     unsigned int (*hashFuncP)(K clave);
 
-    HashEntry<K, T> **tabla;
+    ArbolBinarioAVL<K, T> **tabla;
+
     unsigned int tamanio;
 
 
@@ -22,6 +23,8 @@ public:
     T get(K clave);
 
     void put(K clave, T valor);
+
+    bool Coli(K clave, T valor);
 
     void remove(K clave);
 
@@ -35,7 +38,7 @@ public:
 
 template<class K, class T>
 HashMap<K, T>::HashMap(unsigned int k) {
-    tabla = new HashEntry<K, T> *[k];
+    tabla = new ArbolBinarioAVL<K, T> *[k];
     tamanio = k;
     hashFuncP = hashFunc;
     for (int i = 0; i < tamanio; ++i) {
@@ -52,20 +55,35 @@ template<class K, class T>
 T HashMap<K, T>::get(K clave) {
     unsigned int idx;
     idx = hashFuncP(clave) % tamanio;
-    if (tabla[idx] == nullptr || tabla[idx]->getClave() != clave) {
+    if (tabla[idx] == nullptr)
         throw 404;
-    }
-    return tabla[idx]->getDato();
+    return tabla[idx]->search(clave);
 }
 
 template<class K, class T>
 void HashMap<K, T>::put(K clave, T valor) {
     unsigned int idx;
     idx = hashFuncP(clave) % tamanio;
-    if (tabla[idx] == nullptr)
-        tabla[idx] = new HashEntry<K, T>(valor, clave);
+    if (tabla[idx] == nullptr){
+        tabla[idx] = new ArbolBinarioAVL<K, T>;
+        tabla[idx]->put(clave, valor);
+    }
     else
         throw 404;
+}
+
+template<class K, class T>
+bool HashMap<K, T>::Coli(K clave, T valor) {
+    unsigned int idx;
+    idx = hashFuncP(clave) % tamanio;
+    if (tabla[idx] == nullptr)
+        return false;
+    try{
+        tabla[idx]->search(clave);
+        return true;
+    }catch (...){
+        return false;
+    }
 }
 
 template<class K, class T>
@@ -90,12 +108,13 @@ bool HashMap<K, T>::esVacio() {
 
 template<class K, class T>
 unsigned int HashMap<K, T>::hashFunc(K clave) {
+    //Nuestra funcion hash??
     return clave;
 }
 
 template<class K, class T>
 HashMap<K, T>::HashMap(unsigned int k, unsigned int (*fp)(K)) {
-    tabla = new HashEntry<K, T> *[k];
+    tabla = new ArbolBinarioAVL <K, T> *[k];
     tamanio = k;
     hashFuncP = fp;
     for (int i = 0; i < tamanio; ++i) {
