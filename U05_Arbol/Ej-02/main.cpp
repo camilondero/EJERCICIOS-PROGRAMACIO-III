@@ -38,7 +38,7 @@ int main() {
   Ab.print();
   //cout<<Ab.contarHastaNivel(0);
 
-  //cout<<Ab.NodosTotales();
+  cout<<Ab.NodosTotales();
 
    // Ab.preorder();
 

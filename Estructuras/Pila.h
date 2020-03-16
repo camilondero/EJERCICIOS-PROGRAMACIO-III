@@ -1,5 +1,5 @@
-#ifndef PILA_H
-#define PILA_H
+#ifndef LISTA_H
+#define LISTA_H
 
 #include "nodo.h"
 
@@ -104,7 +104,6 @@ bool Pila<T>::esVacia() {
     return tope == nullptr;
 }
 
-
 template<class T>
 void Pila<T>::insertAfter2(T oldValue, int n, T newValue) {
     Nodo<T> *aux = tope;
@@ -116,4 +115,3 @@ void Pila<T>::insertAfter2(T oldValue, int n, T newValue) {
 }
 
 #endif //LISTA_H
-

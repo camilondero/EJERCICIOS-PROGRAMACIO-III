@@ -2,10 +2,6 @@
 #define LISTA_H
 
 #include "nodo.h"
-#include "../../U04_Colas/Cola/Cola.h"
-#include "../../U03_Pilas/Pila/Pila.h"
-
-using  namespace std;
 
 /**
  * Clase que implementa una Lista Enlasada generica, ya que puede
@@ -48,18 +44,6 @@ public:
     void moverPri(T dato);
 
     void print();
-
-    void buscar(T dato);
-
-    void modif( Pila<int> &pila);
-
-    void bmove(T dato);
-
-    void MoverGrande();
-
-    void Binario();
-
-
 };
 
 
@@ -200,7 +184,6 @@ void Lista<T>::insertarUltimo(T dato) {
     nuevo->setDato(dato);
     nuevo->setSiguiente(aux->getSiguiente());
     aux->setSiguiente(nuevo);
-
 }
 
 
@@ -310,7 +293,7 @@ void Lista<T>::vaciar() {
 
 template<class T>
 void Lista<T>::moverUlti(int pos) {
-    Nodo<T> *aux = inicio, *aMover=inicio;
+    Nodo<T> *aux = inicio, *aMover;
     int posActual = 0;
     while (aux != nullptr && posActual < pos - 1) {
         aux = aux->getSiguiente();
@@ -377,120 +360,7 @@ void Lista<T>::print() {
         std::cout << aux->getDato() << "->";
         aux = aux->getSiguiente();
     }
-    std::cout << "NULL" << std::endl;}
-
-
-
-
-template<class T>
-    void Lista<T>::buscar(T dato) {
-
-        Nodo<T> *aux = inicio;
-
-        while (aux != nullptr && aux->getSiguiente() != dato) {
-            aux->getSiguiente();
-        }
-
-        if (aux->getSiguiente() == nullptr) { cout << "el dato ingresado no existe" << endl; }
-
-    }
-
-
-
-template<class T>
-void Lista<T>::modif(Pila<int> &pila) {
-
-
-    while(!pila.esVacia())
-    {
-        remover(pila.peek());
-        pila.pop();
-    }
-    print();
-
-
-}
-
-template<class T>
-void Lista<T>::bmove(T dato) {
-
-    Nodo<T> *aux=inicio,*amover;
-
-    // si la lista esta vacia tiro exp
-    if (aux == nullptr)
-        throw 404;
-
-    // Si el dato ya está en el primer lugar no hago nada
-    if (aux->getDato() == dato)
-        return;
-
-    while (aux->getSiguiente() != nullptr && aux->getSiguiente()->getDato() != dato) {
-        aux = aux->getSiguiente();
-    }
-    if (aux->getSiguiente() == nullptr)
-        throw 404;
-
-    amover=aux->getSiguiente();
-    aux->setSiguiente(aux->getSiguiente());
-    amover->setSiguiente(inicio);
-    inicio=amover;
-
-
-}
-
-template<class T>
-void Lista<T>::MoverGrande() {
-
-    Nodo<T> *aux=inicio,*amover=inicio;
-    Nodo<T> * mayor= inicio;
-
-    if (aux == nullptr)
-        throw 404;
-
-    while(aux->getSiguiente()!= nullptr){
-
-        if(mayor->getDato() < aux->getSiguiente()->getDato()){
-
-            mayor = aux->getSiguiente();
-        }
-
-        else
-            aux= aux->getSiguiente();
-    }
-
-    while(amover->getSiguiente() == mayor){
-        amover=amover->getSiguiente();
-    }
-
-
-    //me elimina 2 nodos
-    amover->setSiguiente(mayor->getSiguiente());
-    mayor->setSiguiente(inicio);
-    inicio=mayor;
-
-}
-
-int funbinario(int n){
-
-    if(n == 0 || n == 1)
-    return n;
-    else
-        return n%2 + (10 * funbinario(n/2));
-
-}
-
-template<class T>
-
-void Lista<T>::Binario(){
-
-    Nodo<T> *aux=inicio;
-
-    while(aux != nullptr){
-
-        aux->setDato(funbinario(aux->getDato()));
-        aux=aux->getSiguiente();
-    }
-
+    std::cout << "NULL" << std::endl;
 }
 
 

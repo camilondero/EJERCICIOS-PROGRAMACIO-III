@@ -7,6 +7,7 @@
 lista enlazada que es la unión de las otras dos.
 */
 template<class T>
+<<<<<<< HEAD
 Lista<T> unir(Lista<T> &lisA, Lista<T> &lisB)
 {
 
@@ -18,6 +19,18 @@ Lista<T> unir(Lista<T> &lisA, Lista<T> &lisB)
     }
 
     return  lisA;
+=======
+Lista<T> *unir(Lista<T> &lisA, Lista<T> &lisB) {
+    Lista<T> *l = new Lista<T>();
+
+    for (int i = 0; i < lisA.getTamanio(); ++i) {
+        l->insertarUltimo(lisA.getDato(i));
+    }
+    for (int i = 0; i < lisB.getTamanio(); ++i) {
+        l->insertarUltimo(lisB.getDato(i));
+    }
+    return l;
+>>>>>>> 667512902bd8e0d182aa525825d39ef02208e09a
 }
 
 

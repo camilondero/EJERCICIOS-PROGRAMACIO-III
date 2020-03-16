@@ -1,10 +1,25 @@
 #include <iostream>
 #include "../Lista/Lista.h"
 #include "union.h"
+<<<<<<< HEAD
 using  namespace std;
 
+=======
+>>>>>>> 667512902bd8e0d182aa525825d39ef02208e09a
 
 int main() {
+    Lista<int> a, b, *c;
+
+    a.insertarUltimo(4);
+    a.insertarUltimo(9);
+    b.insertarUltimo(41);
+    b.insertarUltimo(43);
+    b.insertarUltimo(42);
+
+    c = unir(a, b);
+
+    c->print();
+
     std::cout << "Ejercicio 01/04\n" << std::endl;
     Lista<int> listaA;
     Lista<int> listaB;
